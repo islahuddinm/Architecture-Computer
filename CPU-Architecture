@@ -1,0 +1,3439 @@
+
+
+I think the best way to learn is know all of computer stuff first and then how they work together.
+But AI can not tell all of them completely at once when we ask once.
+
+
+Binary is just a notation, the thing that makes a CPU understand is ISA. So, binary is just a tool used to make ISA readable.
+Binary is not used to make CPU unedrstands.
+
+    For example:
+    
+        If i write instructions for ARM then give to the instructions to x86, x86 will not understand
+        even though the instruction being binaries.
+
+
+Native code is programming code compiled to run directly on a specific computer's processor.
+
+    Example:
+
+        C, C++, and Rust are all considered native languages because they compile directly into machine code.
+
+    Is java a native code?
+
+        No, Java is generally not considered a "native" code language in the traditional sense, though the answer has
+        become more nuanced with modern technology.
+        
+        Traditionally, "native code" refers to machine-level instructions that a specific CPU can execute directly
+        without any middle layer (like C or C++). Java, by contrast, is a hybrid language.
+
+        How Java Runs
+        
+            - Bytecode (The Default): When you compile Java, it produces bytecode (stored in .class files),
+            which is a platform-independent intermediate language.
+            
+            - Virtual Machine (The Layer): This bytecode cannot be run directly by your computer's processor. It must be executed by
+            the Java Virtual Machine (JVM), which acts as a bridge between the bytecode and your specific hardware.
+            
+            - Just-In-Time (JIT) Compilation: To improve performance, modern JVMs use a JIT compiler to translate frequently used bytecode
+            into actual native machine code at runtime.
+
+
+Here are common computer design models / architectures:
+
+    | Computer design model             | Main idea                                                                    |
+    | --------------------------------- | ---------------------------------------------------------------------------- |
+    | **Von Neumann Architecture**      | Instructions and data share the same memory                                  |
+    | **Harvard Architecture**          | Instructions and data use separate memory                                    |
+    | **Modified Harvard Architecture** | Mostly separate instruction/data paths, but with some shared memory behavior |
+    | **RISC Architecture**             | Uses a small, simple set of instructions                                     |
+    | **CISC Architecture**             | Uses a larger, more complex set of instructions                              |
+    | **Parallel Architecture**         | Multiple processors or cores work at the same time                           |
+    | **Pipelined Architecture**        | Instruction execution is split into stages to improve speed                  |
+    | **Superscalar Architecture**      | CPU can execute multiple instructions in one clock cycle                     |
+    | **Multi-core Architecture**       | One chip contains multiple CPU cores                                         |
+    | **Distributed Architecture**      | Multiple computers work together over a network                              |
+    | **Client-server Architecture**    | Clients request services from central servers                                |
+    | **Dataflow Architecture**         | Execution is driven by data availability instead of instruction order        |
+    | **Stack Architecture**            | Uses a stack structure for operations instead of many registers              |
+    | **Accumulator Architecture**      | Uses one main register, called the accumulator, for calculations             |
+    | **Load-store Architecture**       | Only load/store instructions access memory; arithmetic happens in registers  |
+
+    A simple grouping:
+
+        - Memory-based models: Von Neumann Architecture, Harvard Architecture, Modified Harvard Architecture
+        - Instruction-set styles: RISC, CISC, Load-store, Stack, Accumulator
+        - Performance models: Pipelined, Superscalar, Multi-core, Parallel
+        - System-level models: Distributed, Client-server
+
+
+Computer Design Model, CPU Architecture, Instruction Set Architecture (ISA) --------------------------------------------------------------------------------
+
+    They are different:
+
+        1. Instruction Set Architecture (ISA)
+        
+            The ISA is the conceptual boundary and abstract interface between the software and physical hardware.
+            It serves as a strict "contract" between programmer and chip designer, defining everything necessary to write machine-level code.
+
+            What it includes:
+                
+                Supported data types, available registers, addressing modes, and the instruction set (the basic operations like ADD, LOAD, JUMP).
+
+            Why it matters:
+            
+                The ISA guarantees software portability. For example, software compiled for the x86-64 ISA can run on
+                any physical processor that implements that ISA, whether it is made by Intel or AMD.
+
+        2. CPU Architecture (Microarchitecture)
+
+            While the ISA is the conceptual interface, the CPU architecture (also known as microarchitecture) is
+            the physical manifestation that brings the ISA to life.
+
+            What it includes:
+            
+                The actual circuitry, physical registers, data paths, and the arrangement of components like
+                the Arithmetic Logic Unit (ALU), caches, and pipelines.
+
+            Why it matters:
+            
+                Multiple CPU architectures can implement the exact same ISA. For example, the Apple M1 and the AMD Ryzen
+                both utilize the same basic ISA principles (like 64-bit operations), but their internal CPU architectures are
+                entirely distinct, leading to different performance, power efficiency, and cost profiles.
+
+        3. Computer Design Model
+        
+            The computer design model encompasses the overarching structural organization and system-level principles of
+            how a computer's central processing unit interacts with memory, storage, and peripherals. It sets the rules for
+            how the system processes tasks at a macro level.
+
+            What it includes:
+            
+                The most famous examples are the Von Neumann model (where instructions and data share the same physical memory/buses) and
+                the Harvard model (where instructions and data reside in separate physical memory spaces). It also includes design philosophies like
+                RISC (Reduced Instruction Set Computer) or CISC (Complex Instruction Set Computer).
+
+            Why it matters:
+            
+                The model dictates the system's overall data-handling capability. For instance, the Von Neumann bottleneck—where a system's speed is
+                limited by the rate at which data and instructions can be pulled from the same memory bank—drives the core design of
+                modern motherboard buses and cache layouts.
+
+
+Computer Design Model vs Instruction Set Architecture (ISA) ------------------------------------------------------------------------------------------------
+
+    Von Neumann Architecture
+        
+        Von Neumann Architecture is a classic computer design model where program instructions and data are stored in the same memory and
+        processed by a central processing unit. It was described by John von Neumann and became the foundation for most modern general-purpose computers.
+
+        A Von Neumann computer has four main parts:
+
+            | Component        | Role                                                      |
+            | ---------------- | --------------------------------------------------------- |
+            | **Memory**       | Stores both data and program instructions                 |
+            | **CPU**          | Executes instructions                                     |
+            | **Control Unit** | Directs the operation of the CPU                          |
+            | **Input/Output** | Lets the computer communicate with users or other systems |
+
+        The basic idea is called the stored-program concept: a program is stored in memory just like data, and the CPU fetches instructions one at a time,
+        decodes them, and executes them.
+
+            The usual cycle is:
+
+                - Fetch an instruction from memory
+                - Decode what the instruction means
+                - Execute the instruction
+                - Store or output the result if needed
+
+        A key limitation is the Von Neumann bottleneck. Since instructions and data share the same memory pathway, the CPU can be forced to
+        wait while data or instructions are moved between memory and the processor.
+
+        In simple terms:
+        
+            Von Neumann Architecture is the design idea behind computers that store programs and data together in memory,
+            then process them step by step using a CPU.
+
+    ISA stands for Instruction Set Architecture.
+
+        It is the interface between hardware and software. In simple terms, an ISA defines the instructions that a CPU can understand and execute.
+
+        An ISA specifies things like:
+
+            | Part                    | Meaning                                                                  |
+            | ----------------------- | ------------------------------------------------------------------------ |
+            | **Instructions**        | Operations the CPU can perform, such as add, subtract, load, store, jump |
+            | **Registers**           | Small, fast storage locations inside the CPU                             |
+            | **Data types**          | Types of data the CPU can work with                                      |
+            | **Memory addressing**   | How the CPU finds data in memory                                         |
+            | **Instruction formats** | How machine instructions are written in binary                           |
+
+        For example, when software says:
+
+            </> asm (assembly)
+                
+                ADD R1, R2, R3
+
+            the ISA defines what ADD means, which registers are allowed, and how the CPU should execute that instruction.
+
+        Common examples of ISAs include x86, ARM, RISC-V, and MIPS.
+        So, in one sentence: ISA is the set of rules and instructions that tells software how to control a processor.
+
+    The difference is:
+
+        Von Neumann Architecture describes the overall computer design.
+        ISA describes the instructions the CPU understands.
+
+        | Topic            | Von Neumann Architecture                   | ISA                                                     |
+        | ---------------- | ------------------------------------------ | ------------------------------------------------------- |
+        | Full name        | Von Neumann Architecture                   | Instruction Set Architecture                            |
+        | Main idea        | How a computer is organized                | How software talks to the CPU                           |
+        | Focus            | Memory, CPU, input/output, stored programs | Machine instructions, registers, data types, addressing |
+        | Level            | System/computer design level               | CPU/software interface level                            |
+        | Example question | “Where are instructions and data stored?”  | “What instructions can this CPU run?”                   |
+        | Example          | Program and data share the same memory     | `ADD`, `LOAD`, `STORE`, `JUMP`                          |
+
+    A simple way to think about it:
+
+        Von Neumann Architecture is the layout of the computer. ISA is the language the CPU speaks.
+
+            For example, a computer may use Von Neumann Architecture because it stores both program instructions and data in memory.
+            Its CPU may use an ISA such as x86, ARM, or RISC-V to decide which instructions it can execute.
+
+        So they are related, but not the same:
+
+            Von Neumann Architecture = computer organization
+            ISA = CPU instruction rules
+
+
+Architecture -----------------------------------------------------------------------------------------------------------------------------------------------
+
+Architecture is the art(seni), science(ilmu), and technique(cara) of designing and constructing buildings and physical structures.
+It’s about more than just making something look good—it involves planning how a space functions, how it stands up structurally, and
+how it fits into its environment.
+
+    At a basic level, architecture combines several key ideas:
+
+        - Design: shaping the appearance and layout of a building
+        - Function: making sure spaces work for their intended use
+        - Structure: ensuring the building is stable and safe
+        - Aesthetics: creating something visually meaningful or pleasing
+
+    You can also think of architecture more broadly:
+
+        - In technology, “architecture” refers to how systems are designed (like computer architecture or software architecture).
+        - In organizations, it can describe how parts are structured and connected.
+
+
+CPU vs Chipset
+
+    The CPU (Central Processing Unit) is the "brain" of the computer that executes instructions,
+    while the chipset is the "traffic controller" on the motherboard that manages data flow between the CPU,
+    memory, and peripherals(perangkat keras sekeliling / tambahan yang dihubungkan ke komputer).
+    The CPU does the processing work; the chipset enables components to talk to each other.
+
+
+CPU architectures and the dates founded
+
+    | Year  | CPU Architecture                  | Type                   |
+    | ----- | --------------------------------- | ---------------------  |
+    | 1950s | Vacuum tube computer ISAs         | Early architectures    |
+    | 1964  | IBM System/360                    | CISC                   |
+    | 1970  | PDP-11                            | CISC                   |
+    | 1971  | Intel 4004                        | CISC                   |
+    | 1974  | Intel 8080                        | CISC                   |
+    | 1978  | x86 (Intel 8086)                  | CISC                   |
+    | 1979  | Motorola 68000 (m68k)             | CISC                   |
+    | 1981  | MIPS                              | RISC                   |
+    | 1982  | SPARC                             | RISC                   |
+    | 1985  | ARM                               | RISC                   |
+    | 1991  | PowerPC                           | RISC                   |
+    | 1992  | Alpha                             | RISC                   |
+    | 1995  | x86-64 concept development        | CISC                   |
+    | 1999  | IA-64 (Itanium)                   | EPIC                   |
+    | 2010  | ARM64 / AArch64                   | RISC                   |
+    | 2010  | LoongArch early development roots | RISC                   |
+    | 2010  | OpenRISC growth period            | RISC                   |
+    | 2015  | RISC-V                            | RISC                   |
+
+    Very Important Architectures:
+
+        x86 (1978)
+        - Created by Intel
+        - Dominated desktop PCs
+        - Used by Intel and AMD processors
+        
+        ARM (1985)
+        - Designed for efficiency
+        - Dominates smartphones
+        - Used in Android phones and Apple Silicon
+        
+        MIPS (1981)
+        - Popular in education and embedded systems
+        - Used in older consoles and routers
+        
+        PowerPC (1991)
+        - Used in older Macs and consoles like GameCube/Wii
+        
+        RISC-V (2015)
+        - Open-source ISA
+        - Rapidly growing in research and embedded systems
+
+    Simplified Timeline
+
+        1978 → x86
+        1981 → MIPS
+        1982 → SPARC
+        1985 → ARM
+        1991 → PowerPC
+        2015 → RISC-V
+
+    Modern Dominance
+
+        Today the most important architectures are:
+
+            | Architecture | Main Usage                          |
+            | ------------ | ----------------------------------- |
+            | x86-64       | PCs, gaming computers               |
+            | ARM64        | Smartphones, tablets, Apple Silicon |
+            | RISC-V       | Emerging/open-source systems        |
+
+        For game development:
+
+            - Windows games → usually x86-64
+            - Android games → ARM64
+            - iPhone/iPad games → ARM64
+
+
+CPU name and the brand
+
+    Desktop & Laptop CPUs
+
+        | CPU Name   | Brand/Company | Architecture |
+        | ---------- | ------------- | ------------ |
+        | Core i9    | Intel         | x86-64       |
+        | Core i7    | Intel         | x86-64       |
+        | Core Ultra | Intel         | x86-64       |
+        | Ryzen 9    | AMD           | x86-64       |
+        | Ryzen 7    | AMD           | x86-64       |
+        | Athlon     | AMD           | x86          |
+        | Apple M1   | Apple         | ARM64        |
+        | Apple M2   | Apple         | ARM64        |
+        | Apple M3   | Apple         | ARM64        |
+
+    Smartphone CPUs
+
+        | CPU Name                | Brand/Company | Architecture |
+        | ----------------------- | ------------- | ------------ |
+        | Snapdragon 8 Gen series | Qualcomm      | ARM64        |
+        | Dimensity series        | MediaTek      | ARM64        |
+        | Exynos series           | Samsung       | ARM64        |
+        | Tensor series           | Google        | ARM64        |
+        | Apple A18               | Apple         | ARM64        |
+
+    Server CPUs
+
+        | CPU Name     | Brand/Company | Architecture |
+        | ------------ | ------------- | ------------ |
+        | Xeon         | Intel         | x86-64       |
+        | EPYC         | AMD           | x86-64       |
+        | Graviton     | Amazon        | ARM64        |
+        | POWER series | IBM           | POWER        |
+
+    Older / Historical CPUs
+
+        | CPU Name       | Brand/Company | Architecture |
+        | -------------- | ------------- | ------------ |
+        | Intel 8086     | Intel         | x86          |
+        | Motorola 68000 | Motorola      | m68k         |
+        | MIPS R4000     | MIPS          | MIPS         |
+        | PowerPC G5     | IBM           | PowerPC      |
+
+    Important Structure:
+
+        Brand/Company
+            ↓
+        CPU Product Name
+            ↓
+        CPU Architecture / ISA
+
+        Example:
+
+            * Intel → Core i9 → x86-64 / ISA
+            * Apple → M3 → ARM64 / ISA
+
+
+Computer Architecture
+
+    CPU architecture is the design and structure of a CPU, including how it is organized and how it processes instructions.
+
+        It includes things like:
+
+            - What instructions the CPU can understand
+            - How much data it can process at once, such as 32-bit or 64-bit
+            - What registers it has
+            - How memory is accessed
+            - How programs communicate with the CPU
+
+        Examples of CPU architectures:
+
+            - x86 / x86-64 — common in laptops and desktops
+            - ARM — common in phones, tablets, and many modern laptops
+            - RISC-V — open-source CPU architecture
+
+    CPU Microarchitecture is how the CPU is actually built internally to follow that architecture.
+
+        It includes parts/components like:
+
+            - Control unit — directs the CPU
+            - ALU — does arithmetic and logic
+            - Registers — tiny, very fast storage
+            - Cache — fast memory inside or near the CPU
+            - Cores — processing units inside the CPU
+            - Pipelines — help the CPU work on many instruction steps at once
+            - Branch predictor — guesses what code will run next
+
+        Two CPUs can use the same architecture but have different microarchitectures. For example, Intel and AMD CPUs both
+        use x86-64 architecture, but their internal designs are different.
+
+
+What is ISA called in theoretically?
+
+    In theoretical terms, an ISA is usually called an: "abstract machine rules" or "hardware–software interface" or
+    "programmer-visible architecture". These all describe the same idea from different angles.
+
+        - ISA as an abstract machine rule
+            
+            The ISA describes a virtual/abstract CPU rules that software can target.
+
+            It defines things like:
+
+                - registers
+                - memory model
+                - instructions
+                - data types
+                - addressing modes
+                - program counter
+                - flags/status registers
+                - instruction behavior
+                - binary encoding
+
+            For example, the ISA says:
+
+                There is a register called x1.
+                There is an instruction called add.
+                add x1, x2, x3 means: x1 = x2 + x3.
+
+            That is an abstract rule.
+
+            The real CPU hardware may execute it using pipelines, caches, micro-operations, branch predictors, etc.,
+            but the ISA only describes the visible behavior.
+
+        - ISA vs microarchitecture
+
+            Important difference:
+
+                | Concept               | Theoretical meaning                     |
+                | --------------------- | --------------------------------------- |
+                | **ISA**               | Abstract machine rules                  |
+                | **Microarchitecture** | Physical/internal implementation        |
+                | **Assembly**          | Human-readable form of ISA instructions |
+                | **Machine code**      | Binary encoding of ISA instructions     |
+
+            Example:
+
+                ISA: "There is an ADD instruction."
+                Microarchitecture: "Here is how this CPU physically performs ADD."
+
+            Two CPUs can have the same ISA but different microarchitecture.
+
+                For example:
+
+                    Intel x86-64 CPU
+                    AMD x86-64 CPU
+
+                Both understand the same general ISA, but internally they are built differently.
+
+    ISA analogy:
+
+        | Computer concept      | Language analogy                                     |
+        | --------------------- | ---------------------------------------------------- |
+        | **ISA**               | The language rules: vocabulary, grammar, meaning     |
+        | **Assembly language** | Human-readable sentences written using that language |
+        | **Machine code**      | The same sentences encoded in binary                 |
+        | **Assembler**         | A translator from assembly into machine code         |
+
+
+ISA families
+
+    An ISA family is a group of related CPU instruction rulebooks.
+
+        For example:
+
+            | ISA family        | Examples inside the family   | Common CPUs                                   |
+            | ----------------- | ---------------------------- | --------------------------------------------- |
+            | **x86 family**    | x86, IA-32, x86-64           | Intel Core, AMD Ryzen                         |
+            | **ARM family**    | ARMv7, ARMv8, ARMv9, AArch64 | Apple M chips, Snapdragon, Raspberry Pi       |
+            | **RISC-V family** | RV32, RV64, plus extensions  | microcontrollers, research CPUs, custom chips |
+
+        So an ISA family is not always one exact ISA. It is more like a family tree of related instruction systems.
+
+    Simple analogy
+
+        Think of ISA families like human language families:
+
+            | Human language idea    | CPU idea                                      |
+            | ---------------------- | --------------------------------------------- |
+            | Germanic languages     | x86 family                                    |
+            | Romance languages      | ARM family                                    |
+            | Austronesian languages | RISC-V family                                 |
+            | English, German, Dutch | Different versions/variants inside one family |
+            | Grammar and vocabulary | Instruction rules and binary encoding         |
+
+    What makes ISA families different?
+
+        They differ in the instruction design style, instruction, register, instruction size, instruction decoding, Memory access style.
+
+            1. Instruction design style: CISC vs RISC
+
+                Traditionally:
+
+                    x86-64 = CISC-style
+                    ARM    = RISC-style
+
+                x86-64: CISC-style
+
+                    CISC means Complex Instruction Set Computer. x86-64 has many instructions, and
+                    some instructions can do more complex things.
+
+                    Example idea:
+
+                        asm(assembly)
+                        
+                            add [memory_address], rax
+
+                        This can add a register value directly to a value in memory.
+                        So one instruction can combine:
+
+                            read memory
+                            add value
+                            write result
+
+                ARM: RISC-style
+
+                    RISC means Reduced Instruction Set Computer. ARM usually uses simpler instructions.
+                    Arithmetic normally happens between registers, not directly on memory.
+
+                    Example idea:
+
+                        asm(assembly)
+
+                            ldr x1, [memory_address]   ; load from memory
+                            add x1, x1, x2             ; add registers
+                            str x1, [memory_address]   ; store back to memory
+
+                        So ARM often separates:
+
+                            load
+                            calculate
+                            store
+
+                Conclution:
+
+                    - x86-64 (CISC-style): one instruction can combine many instructions & one instruction can do more complex things.
+                    - ARM (RISC-style): often separates instructions to make simpler instructions.
+
+            2. Different instruction
+            Each ISA family has its own instruction names and behavior.
+
+                For example, addition can look different:
+
+                    asm(assembly)
+                        
+                        ; x86-64
+                        add rax, rbx
+
+                            Meaning:
+
+                                rax = rax + rbx
+                        
+                        ; ARM / AArch64
+                        add x0, x1, x2
+
+                            Meaning:
+
+                                x0 = x1 + x2
+                        
+                        ; RISC-V
+                        add x1, x2, x3
+
+                    They all mean “add,” but the exact rules are different.
+
+            3. Different registers
+            Registers are tiny fast storage locations inside the CPU.
+
+                Different ISA families expose different registers.
+
+                For example:
+
+                    | ISA        | Example register names     |
+                    | ---------- | -------------------------- |
+                    | **x86-64** | `rax`, `rbx`, `rcx`, `rdx` |
+                    | **ARM64**  | `x0`, `x1`, `x2`, `x3`     |
+                    | **RISC-V** | `x0`, `x1`, `x2`, `x3`     |
+
+                Even when names look similar, the rules may be different.
+
+
+One more detail:
+
+    Architecture can mean different things depending on context.
+
+    Sometimes people say:
+
+        “ARM architecture”
+        and they mean the ARM ISA.
+
+    Other times, “CPU architecture” can mean the broader internal design of the CPU, including cores, cache,
+    pipelines, registers, and so on. That broader internal design is often called microarchitecture.
+
+
+x86-64 and ARM both are as ISA families. What make them same and different?
+
+    Yes. x86-64 and ARM are both CPU instruction-set architecture families, meaning both define rules for how machine code talks to a CPU.
+    But they are not the same language. They are like two different CPU “languages.”
+
+        A small correction first:
+
+            x86-64 is more specifically the modern 64-bit version of the x86 family.
+            ARM is a broader family; its modern 64-bit form is usually called ARM64 or AArch64.
+
+        So a cleaner comparison is often:
+
+            x86-64 vs ARM64 / AArch64
+
+    What makes them the same?
+
+        - Both x86-64 and ARM define a CPU abstract machine.
+
+            They both define things like:
+
+                | Both define                       | Meaning                                                          |
+                | --------------------------------- | ---------------------------------------------------------------- |
+                | **Instructions**                  | Add, subtract, load, store, jump, compare, etc.                  |
+                | **Registers**                     | Small fast CPU storage locations                                 |
+                | **Machine-code encoding**         | How instructions are represented as `0` and `1`                  |
+                | **Memory access rules**           | How data is loaded from and stored to memory                     |
+                | **Control flow**                  | How programs jump, call functions, and return                    |
+                | **Privilege/system rules**        | How operating systems control memory, interrupts, and protection |
+                | **Atomic operations**             | Instructions for multicore/thread synchronization                |
+                | **Floating-point/vector support** | Instructions for math, graphics, media, AI, etc.                 |
+
+        - Both can run modern operating systems.
+
+            For example:
+
+                Windows
+                Linux
+                macOS
+                Android
+                iOS
+
+            can run on CPUs based on one of these architectures, depending on the version.
+
+        - Both can run programs written in languages like:
+
+            C, C++, Rust, Go, Java, Python, JavaScript
+
+            but the program must eventually be compiled or translated into the correct machine code for that CPU.
+
+    What make them different?
+    
+        The biggest difference is:
+
+            x86-64 and ARM use different instructions, different binary encodings, and different CPU rules.
+
+            So machine code made for one does not directly run on the other:
+
+                x86-64 machine code  → x86-64 CPU
+                ARM64 machine code   → ARM64 CPU
+
+                If you try this:
+
+                    x86-64 machine code → ARM64 CPU
+
+                    it will not run directly.
+
+                You need:
+
+                    recompilation
+                    or
+                    emulation
+                    or
+                    binary translation
+
+                    Example: Apple Silicon Macs use ARM-based CPUs, but they can run many older x86-64 Mac apps using translation.
+
+        Main differences:
+
+            1. Instruction design style: CISC vs RISC
+
+                Traditionally:
+
+                    x86-64 = CISC-style
+                    ARM    = RISC-style
+
+                x86-64: CISC-style
+
+                    CISC means Complex Instruction Set Computer. x86-64 has many instructions, and
+                    some instructions can do more complex things.
+
+                    Example idea:
+
+                        asm(assembly)
+                        
+                            add [memory_address], rax
+
+                        This can add a register value directly to a value in memory.
+                        So one instruction can combine:
+
+                            read memory
+                            add value
+                            write result
+
+                ARM: RISC-style
+
+                    RISC means Reduced Instruction Set Computer. ARM usually uses simpler instructions.
+                    Arithmetic normally happens between registers, not directly on memory.
+
+                    Example idea:
+
+                        asm(assembly)
+
+                            ldr x1, [memory_address]   ; load from memory
+                            add x1, x1, x2             ; add registers
+                            str x1, [memory_address]   ; store back to memory
+
+                        So ARM often separates:
+
+                            load
+                            calculate
+                            store
+
+                Conclution:
+
+                    - x86-64 (CISC-style): one instruction can combine many instructions & one instruction can do more complex things.
+                    - ARM (RISC-style): often separates instructions to make simpler instructions.
+
+            2. Registers
+
+                Registers are tiny fast storage locations inside the CPU.
+                x86-64 has fewer(lebih sedikit) general-purpose registers than ARM64.
+
+                Example:
+
+                    | Architecture | General-purpose registers                                                |
+                    | ------------ | ------------------------------------------------------------------------ |
+                    | **x86-64**   | 16 main 64-bit registers, such as `rax`, `rbx`, `rcx`, `rdx`, `r8`–`r15` |
+                    | **ARM64**    | 31 main 64-bit registers, `x0`–`x30`, plus special registers             |
+
+                    This means ARM64 code often has more registers available for holding temporary values.
+
+                        Example x86-64 registers:
+                            
+                            asm(assembly)
+
+                                rax
+                                rbx
+                                rcx
+                                rdx
+                                rsi
+                                rdi
+                                rsp
+                                rbp
+                                r8
+                                r9
+                                ...
+
+                        Example ARM64 registers:
+
+                            asm(assembly)
+
+                                x0
+                                x1
+                                x2
+                                x3
+                                ...
+                                x30
+            
+            3. Instruction encoding
+
+                x86-64 instructions are variable length.
+
+                    An x86-64 instruction can be different sizes, such as:
+                        
+                        1 byte
+                        2 bytes
+                        3 bytes
+                        ...
+                        up to 15 bytes
+
+                ARM instructions are usually more regular.
+
+                    For example, modern ARM64 commonly uses fixed-size 32-bit instructions.
+                    So:
+                        | Architecture        | Instruction size style           |
+                        | ------------------- | -------------------------------- |
+                        | **x86-64**          | Variable-length instructions     |
+                        | **ARM64 / AArch64** | Mostly fixed 32-bit instructions |
+
+                Conclution:
+
+                    x86-64 CPUs need more complex instruction decoders.
+                    ARM decoding is usually more regular.
+
+            4. Memory access style
+
+                x86-64 allows many instructions to work directly with memory.
+
+                    Example:
+
+                        asm(assembly)
+                        
+                            add rax, [rbx]
+
+                        One instruction combine many instructions
+
+                            This means:
+
+                                load value from memory address in rbx
+                                add it to rax
+                                store result in rax
+                
+                ARM64 is more strictly load/store.
+
+                    Example:
+
+                        asm(assembly)
+
+                            ldr x1, [x2]
+                            add x0, x0, x1
+
+                        This means:
+
+                            load memory value into x1
+                            then add registers
+
+                        So, they can not work directly with memory at once
+
+                Conclution:
+
+                    | Architecture | Memory style                                                               |
+                    | ------------ | -------------------------------------------------------------------------- |
+                    | **x86-64**   | Many instructions can use memory directly                                  |
+                    | **ARM64**    | Load/store architecture: memory access mostly uses load/store instructions |
+
+Architecture -----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Compiler ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Compiler
+
+    The compiler uses the ISA to translate your program into machine code that the CPU can understand.
+
+        Example:
+
+            C (c programming language)
+            
+                int x = a + b;
+
+            The compiler may translate this into x86-64 machine code (binary) for an Intel/AMD CPU, or
+            ARM64 machine code for an Apple M-series/Snapdragon CPU.
+
+            The flow is:
+
+                C / C++ / Rust / Go source code
+                        ↓ compiler
+                Assembly or machine code for a specific ISA
+                        ↓ assembler / linker
+                Executable program
+                        ↓ CPU
+                CPU runs it according to its ISA
+
+        So:
+
+            | Thing         | Role                                                    |
+            | ------------- | ------------------------------------------------------- |
+            | **ISA**       | The CPU instruction rulebook                            |
+            | **Compiler**  | Translates high-level code into code for a specific ISA |
+            | **Assembler** | Converts assembly into machine-code bits                |
+            | **CPU**       | Executes the machine code                               |
+
+
+What does x86-64 OS expect to x86 program to be able run on the x86-64 OS?
+
+    An x86-64 OS expects a program to match its platform rules, not just contain x86/x86-64 instructions.
+
+        For a program to run normally on an x86-64 OS, it usually must match these:
+
+            Correct CPU ISA
+            + Correct executable format
+            + Correct OS ABI
+            + Correct system calls / OS APIs
+            + Correct libraries / runtime
+
+        Example: Windows x86-64 OS
+
+            A Windows x86-64 OS expects a native program to be something like:
+
+                x86-64 machine code
+                + PE/.exe format
+                + Windows x64 ABI
+                + Windows APIs / DLLs
+
+            So:
+
+                Windows x64 program → Windows x86-64 OS ✅
+                Linux x86-64 program → Windows x86-64 OS ❌ normally
+
+            The Linux program may contain valid x86-64 instructions, but Windows does not normally understand
+            its ELF format, Linux syscalls, or Linux libraries.
+
+        Example: Linux x86-64 OS
+
+            A Linux x86-64 OS expects a native program to be something like:
+
+                x86-64 machine code
+                + ELF format
+                + Linux x86-64 ABI / System V AMD64 ABI
+                + Linux syscalls
+                + Linux shared libraries, like libc.so
+
+            So:
+
+                Linux x86-64 program → Linux x86-64 OS ✅
+                Windows x64 .exe → Linux x86-64 OS ❌ normally
+
+    What about 32-bit x86 programs?
+
+        An x86-64 CPU can often run older 32-bit x86 instructions too, but the OS must support 32-bit compatibility mode.
+
+            So:
+
+                32-bit x86 app → x86-64 CPU
+
+            can work only if the OS provides:
+
+                32-bit executable loader
+                32-bit ABI
+                32-bit libraries
+                32-bit syscall compatibility
+
+            Example:
+
+                32-bit x86 app → 64-bit Windows ✅ often works through WoW64
+                32-bit x86 app → 64-bit Linux ✅ if 32-bit compatibility libraries are installed
+                32-bit x86 app → 64-bit OS without 32-bit support ❌
+
+        Simple answer
+
+            An x86-64 OS expects an x86/x86-64 program to be built for:
+
+                the CPU architecture plus that OS’s binary environment.
+
+            So the program must match:
+
+                ISA              : x86-64 or supported 32-bit x86
+                OS format        : ELF, PE, Mach-O, etc.
+                ABI              : Linux System V, Windows x64, etc.
+                libraries/runtime: available for that OS
+                system interface : correct syscalls or APIs
+
+            In one sentence:
+
+                The CPU must understand the instructions, and the OS must understand how to load, link, and service the program.
+
+
+How does compiler compile a C program for a specific OS and what the compiler needs to compile the program?
+
+    A compiler compiles a C program for a specific OS by using a target platform.
+
+        A target platform usually means:
+
+            CPU architecture + OS + ABI
+
+        Example targets:
+
+            x86_64-linux-gnu
+            x86_64-windows-msvc
+            x86_64-w64-mingw32
+            aarch64-linux-gnu
+            aarch64-apple-darwin
+
+        Each target tells the compiler:
+
+            “Generate machine code for this CPU, and follow this OS/ABI’s rules.”
+
+    What the compiler needs
+
+        To compile a C program for a specific OS, the compiler needs several things.
+
+            1. Target CPU ISA
+            The compiler must know what CPU instructions to generate.
+
+                Example:
+
+                    x86-64  → generate x86-64 machine code
+                    ARM64   → generate ARM64 machine code
+                    RISC-V  → generate RISC-V machine code
+
+                Same C code:
+
+                    int add(int a, int b) {
+                        return a + b;
+                    }
+
+                Could become x86-64 instructions on an Intel/AMD CPU, or ARM64 instructions on an Apple M chip or Snapdragon CPU.
+
+            2. Target ABI
+            The compiler must follow the target OS ABI.
+
+                The ABI tells it things like:
+
+                    - how to pass function arguments
+                    - where to put return values
+                    - which registers to preserve
+                    - how to align the stack
+                    - how structs are laid out
+                    - how system calls/libraries are used
+
+                Example difference on x86-64:
+
+                    Linux x86-64:
+                    first argument → RDI
+
+                    Windows x64:
+                    first argument → RCX
+
+                So the compiler must know whether it is compiling for Linux or Windows.
+
+            3. Object file format
+            The compiler must output files in a format the target OS/toolchain understands.
+
+                Examples:
+
+                    Linux   → ELF object/executable files
+                    Windows → COFF/PE .obj/.exe files
+                    macOS   → Mach-O object/executable files
+
+                So a Linux compiler normally produces ELF files, while a Windows compiler produces PE/COFF files.
+
+            4. C standard library and headers
+
+                Most C programs use standard headers:
+
+                    #include <stdio.h>
+                    #include <stdlib.h>
+                    #include <string.h>
+
+                The compiler needs the correct headers for the target platform.
+
+                    For example, when compiling this:
+
+                        printf("Hello\n");
+
+                    the compiler must know the declaration of printf, usually from:
+
+                        #include <stdio.h>
+
+                    But the actual implementation of printf comes from the C standard library.
+
+                        Examples:
+
+                            Linux   → glibc, musl, etc.
+                            Windows → MSVCRT, UCRT, MinGW runtime, etc.
+                            macOS   → Apple libc
+
+            5. Linker
+            Compiling is often not enough. The program must also be linked.
+
+                The linker combines:
+
+                    Example:
+
+                        - your object files
+                        - C runtime startup code
+                        - standard libraries
+                        - other libraries
+
+                    into a final executable.
+
+                Flow:
+
+                    main.c
+                    ↓ compiler
+                    main.o
+                    ↓ linker
+                    program executable
+
+                The linker must know the target OS format and libraries.
+
+            6. Runtime startup code
+            When your C program starts, the OS usually does not call your main() directly.
+
+                Instead, startup code runs first.
+
+                    It prepares things like:
+
+                        argc / argv
+                        environment variables
+                        C runtime initialization
+                        global constructors, for C++
+                        standard input/output setup
+
+                    Then it calls:
+
+                        C (c programming language)
+                        
+                            main(argc, argv)
+
+                        That startup code is target-OS-specific.
+
+                    Examples:
+
+                        Linux   → crt1.o, crti.o, crtn.o
+                        Windows → CRT startup code
+                        macOS   → Apple runtime startup objects
+
+            7. System libraries and OS APIs
+            If your program uses OS-specific functions, the compiler/linker need the correct headers and libraries.
+
+                Example Linux-style code:
+
+                    C (c programming language)
+
+                        #include <unistd.h>
+
+                        write(1, "Hello\n", 6);
+
+                    This expects Linux/Unix-like APIs.
+
+                Example Windows-style code:
+
+                    C (c programming language)
+
+                        #include <windows.h>
+
+                        WriteFile(...);
+
+                    This expects Windows APIs.
+
+                So the source code itself may also need to match the target OS.
+
+        Example of compiling
+        
+            Example: compiling for Linux
+
+                Suppose you have:
+
+                    #include <stdio.h>
+
+                    int main() {
+                        printf("Hello Linux\n");
+                        return 0;
+                    }
+
+                On Linux x86-64, GCC may target:
+
+                    x86_64-linux-gnu
+
+                It uses:
+
+                    x86-64 ISA
+                    System V AMD64 ABI
+                    ELF file format
+                    Linux C library, like glibc
+                    Linux dynamic linker
+                    Linux startup files
+
+                Output:
+
+                    "Linux ELF executable"
+
+                    That executable expects Linux.
+
+            Example: compiling for Windows
+
+                The same C code can be compiled for Windows x86-64.
+
+                The compiler target might be:
+
+                    x86_64-w64-mingw32
+
+                    or:
+
+                    x86_64-pc-windows-msvc
+
+                It uses:
+
+                    x86-64 ISA
+                    Windows x64 ABI
+                    PE/.exe file format
+                    Windows C runtime
+                    Windows DLL linking rules
+                    Windows startup code
+
+                Output:
+
+                    "Windows .exe"
+
+                    That executable expects Windows.
+
+    Native compile vs cross-compile
+
+        Native compile
+
+            You compile for the same system you are using.
+
+            Example:
+
+                Running Linux x86-64
+                Compiling for Linux x86-64
+
+        Cross-compile
+
+            You compile for a different system.
+
+            Example:
+
+                Running Linux x86-64
+                Compiling for Windows x86-64
+
+            For cross-compiling, you need a cross toolchain.
+
+                That includes:
+
+                    compiler backend for target ISA
+                    target headers
+                    target libraries
+                    target linker
+                    target runtime startup files
+
+                For example, on Linux you can use MinGW-w64 to produce Windows .exe files.
+
+    Full compilation flow
+
+        A typical C build looks like this:
+
+            hello.c
+                ↓ preprocessor
+            expanded C source
+                ↓ compiler frontend
+            intermediate representation
+                ↓ compiler backend for target ISA/ABI
+            assembly code
+                ↓ assembler
+            object file
+                ↓ linker + libraries + startup code
+            executable file
+
+        More detailed:
+
+            C source code
+                ↓
+            Preprocessor handles #include and #define
+                ↓
+            Compiler checks C syntax and meaning
+                ↓
+            Compiler generates target-specific assembly
+                ↓
+            Assembler creates object file (machine code (binary))
+                ↓
+            Linker connects object files and libraries
+                ↓
+            Final OS-specific executable (It is not only raw machine code)
+
+    Simple summary
+
+        To compile a C program for a specific OS, the compiler/toolchain needs:
+
+            1. target CPU ISA
+            2. target OS
+            3. target ABI
+            4. target executable/object format
+            5. target headers
+            6. target libraries
+            7. target linker
+            8. target runtime startup code
+
+        So the clean answer is:
+
+            The compiler does not just compile “for a CPU.”
+            It compiles for a target platform: CPU architecture + OS + ABI + libraries.
+
+
+What does an executable file (compiled app) has?
+
+    An executable file, or compiled app, contains the information the OS needs to turn a file on disk into a running process.
+
+    It is not only raw machine code.
+
+        A typical executable contains:
+
+            | Part                                    | Meaning                                                                       |
+            | --------------------------------------- | ----------------------------------------------------------------------------- |
+            | **Header**                              | Identifies the file type, target CPU, OS format, and entry point              |
+            | **Machine code / text section**         | The actual CPU instructions                                                   |
+            | **Read-only data**                      | Constant values, string literals, lookup tables                               |
+            | **Initialized data**                    | Global/static variables with starting values                                  |
+            | **Uninitialized data / BSS**            | Global/static variables that start as zero                                    |
+            | **Symbol table**                        | Names/addresses of functions and variables, often for linking/debugging       |
+            | **Relocation info**                     | Instructions for fixing addresses when loaded into memory                     |
+            | **Import table / dynamic dependencies** | Shared libraries and functions the program needs                              |
+            | **Export table**                        | Functions/symbols the executable provides to others, more common in libraries |
+            | **Debug info**                          | Optional information for debuggers                                            |
+            | **Metadata/resources**                  | Icons, version info, manifests, permissions, app resources                    |
+            | **Startup/runtime info**                | Information needed to start the runtime before `main()`                       |
+
+        Different OSes use different executable formats:
+
+            Linux   → ELF
+            Windows → PE / .exe
+            macOS   → Mach-O
+
+        A simplified executable looks like this:
+
+            Executable file
+            │
+            ├── Header
+            │   ├── file format
+            │   ├── target architecture
+            │   ├── entry point address
+            │   └── program layout info
+            │
+            ├── Code section
+            │   └── machine instructions
+            │
+            ├── Data sections
+            │   ├── constants
+            │   ├── initialized globals
+            │   └── zero-initialized globals
+            │
+            ├── Linking/loading information
+            │   ├── needed libraries
+            │   ├── imported functions
+            │   └── relocation info
+            │
+            └── Optional extras
+                ├── debug info
+                ├── icons/resources
+                └── security/signature metadata
+
+        For example, this C program:
+
+            #include <stdio.h>
+
+            int global_number = 10;
+
+            int main() {
+                printf("Hello\n");
+                return 0;
+            }
+
+        After compilation, the executable may contain:
+
+            - machine code for main()
+            - the string "Hello\n"
+            - the global variable global_number = 10
+            - a reference to printf
+            - a note saying it needs the C library
+            - an entry point where execution begins
+
+        One important point:
+
+            The OS does not just “run the file.” It reads the executable format, maps code/data into memory,
+            loads needed libraries, prepares the stack, then starts execution at the entry point.
+
+        So in simple words:
+
+            An executable file contains CPU instructions plus data and OS/linker information needed to load, link, and start the program.
+
+
+If i want to compile a unreal engine game for android smartphone what do i need?
+
+    I’ll treat this as a real target-platform question: Unreal Engine game → Android phone,
+    so the key pieces are CPU/OS ABI, Android SDK/NDK toolchain, packaging, and device requirements.
+
+    To compile an Unreal Engine game for an Android smartphone, you need a complete Android target toolchain, not only “ARM machine code.”
+
+        The target is usually:
+
+            Unreal project
+            → Android OS
+            → ARM64 CPU architecture
+            → Android ABI: arm64-v8a
+            → APK or AAB package
+
+        What you need
+
+            | Need                                        | Why                                                             |
+            | ------------------------------------------- | --------------------------------------------------------------- |
+            | **Unreal Engine**                           | The game engine and build system                                |
+            | **Android Studio**                          | Provides Android SDK tools and setup support                    |
+            | **Android SDK**                             | Lets you build for Android OS versions/API levels               |
+            | **Android NDK**                             | Lets Unreal compile C++ code into native Android machine code   |
+            | **JDK / Java tools**                        | Needed for Gradle/Android packaging                             |
+            | **Gradle**                                  | Builds and packages the Android app                             |
+            | **Android device or emulator**              | For testing                                                     |
+            | **USB debugging / Android developer mode**  | To deploy directly to a phone                                   |
+            | **Keystore/signing key**                    | Required for release builds and Play Store upload               |
+            | **Correct Unreal Android project settings** | Package name, SDK levels, texture format, renderer, permissions |
+            | **Google Play requirements**                | Required if publishing to Play Store                            |
+
+            Epic’s current Android setup docs say Unreal uses Android Studio and the Android SDK Command-Line Tools to
+            install the SDK components needed for Android projects, including the NDK. Epic also notes that Google Play requires apps to
+            target Android 14 / API level 34, and for Play Store submission you need UE 5.4.4 or newer for target SDK 34 support.
+            https://dev.epicgames.com/documentation/unreal-engine/set-up-android-sdk-ndk-and-android-studio-using-turnkey-for-unreal-engine?lang=en-US&utm_source=chatgpt.com
+
+    1. The CPU / ABI part
+
+        Most Android smartphones today use ARM64 CPUs.
+
+            So your Unreal game usually targets:
+
+                CPU ISA: ARM64 / AArch64
+                Android ABI: arm64-v8a
+                OS: Android
+                Package: APK or AAB
+
+            This means Unreal’s build tools compile the C++ parts of the game into native Android ARM64 code,
+            then package that with assets, Java/Kotlin Android glue code, metadata, and libraries.
+
+                Simplified:
+
+                    Unreal C++ / Blueprints / assets
+                            ↓
+                    Unreal Build Tool
+                            ↓
+                    Android NDK compiler generates ARM64 native code
+                            ↓
+                    Gradle packages app
+                            ↓
+                    APK / AAB
+                            ↓
+                    Android phone installs and runs it
+
+        What the final Android app contains
+
+            The packaged game is not just CPU instructions. It includes:
+
+                - AndroidManifest.xml
+                - native ARM64 libraries, such as .so files
+                - Unreal Engine runtime code
+                - your game code
+                - cooked game assets
+                - textures/audio/maps
+                - Java/Kotlin Android wrapper code
+                - permissions
+                - resources
+                - signing information
+
+            For Android, Unreal supports publishing to Android devices and includes tools/guides for
+            setting up the development environment, Android features, and preparing a game for shipping.
+            https://dev.epicgames.com/documentation/unreal-engine/android-support-for-unreal-engine?lang=en-US&utm_source=chatgpt.com
+
+    2. Rendering/device requirements
+
+        You also need to choose mobile rendering support.
+
+            Common Android graphics targets include:
+
+                Vulkan
+                OpenGL ES, depending on engine/version/device support
+
+            Epic documents Unreal’s built-in support for the Android Vulkan mobile renderer, describing
+            Vulkan as a low-overhead cross-platform graphics API for Android projects.
+            https://dev.epicgames.com/documentation/unreal-engine/using-the-android-vulkan-mobile-renderer-in-unreal-engine?lang=en-US&utm_source=chatgpt.com
+
+        For a real smartphone target, you should check:
+
+            Does the phone support Vulkan?
+            How much RAM does it have?
+            What GPU does it have?
+            What Android version is installed?
+            Can it run your chosen Unreal rendering features?
+
+    3. For testing on your phone
+
+        You typically need to:
+
+            - enable Developer Options on Android
+            - enable USB Debugging
+            - connect phone by USB
+            - install needed USB driver, especially on Windows
+            - select Android as Unreal target platform
+            - package or launch to device
+
+        Epic’s Android quick-start/setup docs cover setting up a test device, configuring Unreal projects for mobile development,
+        packaging Android builds, previewing mobile rendering levels, and testing on-device.
+        https://dev.epicgames.com/documentation/unreal-engine/setting-up-unreal-engine-projects-for-android-development?lang=en-US&utm_source=chatgpt.com
+
+    4. For Play Store release
+
+        For a release build, you also need:
+
+            - unique package name, like com.company.gamename
+            - release signing keystore
+            - target SDK level required by Google Play
+            - version code/version name
+            - AAB package usually preferred/required for Play distribution
+            - privacy/permissions setup
+            - store assets and metadata
+
+        Unreal’s Android project settings include fields such as the Android package name,
+        which must be unique and formatted like com.Company.Project.
+        https://dev.epicgames.com/documentation/unreal-engine/android-settings-in-the-unreal-engine-project-settings?lang=en-US&utm_source=chatgpt.com
+
+    Simple summary
+
+        To compile an Unreal Engine game for Android, you need:
+
+            Unreal Engine
+            + Android Studio
+            + Android SDK
+            + Android NDK
+            + JDK/Gradle
+            + Android target ABI, usually arm64-v8a
+            + Android project settings in Unreal
+            + device testing setup
+            + signing key for release
+
+        In your earlier terms:
+
+            You are compiling the game for ARM64 ISA + Android ABI + Android OS + Android packaging format.
+
+Compiler ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+OS (Operating System) -----------------------------------------------------------------------------------------------------------------------------------------
+
+OS does when i get a loading after double-click a compiled app
+
+    The OS is preparing the program so the CPU can start executing it safely.
+
+        Roughly, this happens:
+
+            Double-click app
+                ↓
+            Shell / file manager asks OS to launch the executable
+                ↓
+            OS checks file type, permissions, security policy, and signatures
+                ↓
+            OS creates a new process
+                ↓
+            OS creates the process virtual address space
+                ↓
+            OS maps executable code/data into memory
+                ↓
+            OS loads or maps required shared libraries of app
+                ↓
+            OS sets up stack (memory areas), heap (memory areas), environment variables, arguments
+                ↓
+            Dynamic linker/loader resolves symbols and prepares shared libraries
+                ↓
+            OS starts execution at the program entry point (a point of where codes start be read)
+                ↓
+            Runtime startup code runs
+                ↓
+            main() or equivalent application entry function runs
+                ↓
+            App begins running
+                ↓
+            App requests OS services through system calls
+                ↓
+            OS manages files, screen, keyboard, network, devices, etc.
+                ↓
+            OS scheduler gives CPU time to the process
+                ↓
+            OS isolates/protects this process from other processes
+
+    Example:
+
+        1. OS checks what kind of app it is
+
+            The OS first reads the file format.
+
+            Examples:
+
+                Windows → .exe / PE format
+                Linux   → ELF format
+                macOS   → Mach-O format
+
+                The OS checks things like:
+
+                    - Is this a valid executable?
+                    - What CPU architecture is it for?
+                    - Where is the starting point?
+                    - What libraries does it need?
+                    - What memory sections does it contain?
+
+                For example, Windows may see:
+
+                    - This is a Windows x86-64 executable.
+                    - Start execution at this address.
+                    - Load these DLLs.
+
+        2. OS creates a process
+
+            A process is the OS’s container for a running program.
+
+            The OS creates:
+
+                - process ID
+                - private virtual memory space
+                - main thread
+                - security permissions
+                - file handles
+                - environment variables
+                - current working directory
+
+            So the program gets its own controlled environment.
+
+        3. OS maps the app into memory
+
+            The app is stored on disk, but the CPU executes instructions from memory.
+
+            So the OS maps parts of the executable into RAM/virtual memory:
+
+                - code section      → executable memory
+                - data section      → readable/writable memory
+                - read-only data    → read-only memory
+
+            The OS also sets memory protection rules.
+
+                For example:
+
+                    - code memory can be executed but not written
+                    - data memory can be written but not executed
+
+                This helps security and stability.
+
+        4. OS sets up stack and heap
+
+            The OS prepares memory areas the program needs:
+
+                stack → function calls, local variables, return addresses
+                heap  → dynamic memory allocation, like malloc/new
+
+            The program does not begin with these magically ready. The OS and runtime prepare them.
+
+        5. OS loads shared libraries
+
+            Most apps depend on libraries.
+
+                Examples:
+
+                    Windows → .dll files
+                    Linux   → .so files
+                    macOS   → .dylib files
+
+                For example, a C program may need the C runtime library.
+
+            The OS/dynamic loader loads those libraries and connects function references.
+
+                Example:
+
+                    "Your app calls printf"
+                    Dynamic loader connects that call(panggilan) to the real printf function in libc/runtime library
+
+        6. OS sets up arguments and environment
+
+            If the app was started with arguments, the OS/runtime prepares them.
+
+            Example:
+
+                myapp file.txt --debug
+
+            The app may receive:
+
+                argv[0] = myapp
+                argv[1] = file.txt
+                argv[2] = --debug
+
+            It also gets environment variables, such as:
+
+                PATH
+                HOME
+                USERNAME
+                LANG
+
+        7. OS starts the main thread
+
+            The OS creates the first thread of execution. Then it sets the CPU’s instruction pointer/program counter to
+            the program’s starting address.
+
+            In simple terms:
+
+                CPU, start executing this program here.
+
+            But the first code is often not your "main()" directly. Usually it starts in runtime startup code first.
+            The startup code prepares language/runtime details, then calls your program’s "main()" or equivalent.
+
+        8. App begins asking OS for services
+
+            Once running, the app may ask the OS for things:
+
+                - open a window
+                - read a file
+                - allocate more memory
+                - connect to network
+                - play sound
+                - draw graphics
+                - create threads
+
+            These requests happen through libraries, APIs, and system calls in apps.
+            The app does not directly control most hardware. It asks the OS.
+
+                Example:
+
+                    C (c programming language)
+
+                        read(file, buffer, size);
+
+                    This eventually becomes a system call:
+
+                        App: OS, please read from this file.
+                        OS: I will access the disk or filesystem and return the data.
+
+    Why you see “loading”
+
+        Loading may take time because the OS and app may be doing things like:
+
+            - reading files from disk
+            - loading libraries
+            - checking permissions/signatures
+            - initializing runtime
+            - setting up graphics/window system
+            - reading configuration files
+            - connecting to services
+            - warming caches
+            - initializing plugins
+
+        So the loading screen does not only mean “CPU is executing.” It often means:
+
+            The OS, runtime, libraries, and app are preparing everything the program needs before it becomes usable.
+
+
+Can a type of CPU architecture can be compatible with types of different OS?
+
+    Yes. One CPU architecture can be compatible with many different operating systems,
+    as long as the OS has been built for that CPU architecture.
+
+        For example, x86-64 CPUs can run:
+
+            Windows x86-64
+            Linux x86-64
+            macOS x86-64
+            FreeBSD x86-64
+
+        And ARM64 CPUs can run:
+
+            Android ARM64
+            iOS ARM64
+            Linux ARM64
+            macOS ARM64
+            Windows ARM64
+
+        But the OS itself must match the CPU’s ISA.
+
+            x86-64 OS → x86-64 CPU ✅
+            ARM64 OS → ARM64 CPU ✅
+            ARM64 OS → x86-64 CPU ❌ normally
+            x86-64 OS → ARM64 CPU ❌ normally
+
+    A CPU architecture only answers:
+
+        “Can this CPU understand this machine-code instruction set?”
+
+        The OS also has to be compiled for that instruction set and designed to support that hardware platform.
+
+    So the relationship is:
+
+        CPU architecture / ISA
+                ↓
+        OS compiled for that ISA
+                ↓
+        Apps compiled for that OS + ABI + ISA
+
+        Example:
+
+            x86-64 CPU
+            ├── Windows x64 OS
+            ├── Linux x86-64 OS
+            └── FreeBSD x86-64 OS
+
+        Each OS uses the same CPU instruction set, but each has its own:
+
+            executable format
+            ABI
+            system calls
+            drivers
+            kernel design
+            libraries
+
+    So yes:
+
+        A CPU architecture can support many operating systems, but each OS must be built for that CPU architecture and hardware platform.
+
+
+ABI means Application Binary Interface.
+
+    An Application Binary Interface (ABI) is a low-level set of rules that defines how compiled software/app programs.
+    It is the rulebook that lets compiled programs work with an operating system, libraries, and other compiled code.
+
+    You can think of it like this:
+
+        ISA = rules for machine code talking to the CPU
+        ABI = rules for compiled program talking to OS/libraries/other compiled code
+
+    What ABI defines
+
+        An ABI defines things like:
+
+            | ABI rule for                    | Meaning                                                |
+            | ------------------------------- | ------------------------------------------------------ |
+            | **Function calling convention** | Where arguments go when calling a function             |
+            | **Return value rule**           | Where a function puts its result                       |
+            | **Register usage**              | Which registers a function may change or must preserve |
+            | **Stack layout**                | How function calls organize memory                     |
+            | **Data layout**                 | How integers, structs, arrays, pointers are stored     |
+            | **System call convention**      | How a program asks the OS for services                 |
+            | **Executable/library format**   | How compiled files are structured and linked           |
+
+    Simple example
+
+        Suppose a program calls a function:
+
+            C (c programming language)
+
+                add(3, 5)
+
+            The ABI decides things like:
+
+                - Put first argument 3 in this register
+                - Put second argument 5 in that register
+                - After the function finishes, return the result in this register
+
+            So the caller and the function agree on how to communicate.
+
+        Without an ABI, one part of the program might put arguments in one place,
+        while the function expects them somewhere else.
+
+    Why ABI matters
+
+        A Linux x86-64 program and a Windows x86-64 program can use the same CPU ISA, but different ABIs.
+
+            Linux x86-64 program  → x86-64 ISA + Linux ABI
+            Windows x86-64 app    → x86-64 ISA + Windows x64 ABI
+
+        The CPU may understand both sets of instructions, but the OS and libraries expect different binary rules.
+
+    An Application Binary Interface (ABI) is a set of rules that OS has?
+
+        An ABI is a set of low-level rules that lets compiled machine code work correctly with the operating system,
+        CPU architecture, libraries, and other compiled code.
+
+        It is not only “rules the OS has.” The ABI is a contract between several things:
+
+            compiled program ↔ CPU ↔ OS kernel ↔ system libraries ↔ other compiled modules
+
+    Additional ABI example:
+        
+        Windows x64 ABI defines things like:
+
+            | ABI rule for:              | Meaning                                                            |
+            | -------------------------- | ------------------------------------------------------------------ |
+            | **Calling convention**     | How functions pass arguments and return values in OS ABI works     |
+            | **Register usage**         | Which registers a function may change according to OS ABI          |
+            | **Stack layout**           | How function calls use memory in OS ABI works                      |
+            | **Data layout**            | How integers, structs, pointers, etc. are arranged in OS ABI works |
+            | **System call convention** | How the app asks the OS for services in OS ABI works               |
+            | **Binary linking rules**   | How compiled code connects to libraries in OS ABI works            |
+
+        Example of ABI works:
+
+            C (c programming language)
+            
+                printf("Hello");
+
+            Your app may call printf, but printf is usually in a library. The ABI makes sure your app and the library agree
+            on how that function call works according to ABI.
+
+                For example, the ABI decides:
+
+                    - put first argument here
+                    - put return value there
+                    - save these registers
+                    - align the stack this way
+
+                Without the correct ABI, the program and library may misunderstand each other.
+
+    Simple analogy
+
+        Imagine a restaurant:
+
+            - Compiled app ---> A customer with requests
+            - Libraries ------> Pre-made services/menu items
+            - ABI ------------> The etiquette/form of rules for making requests
+            - OS -------------> The restaurant manager and staff
+            - System calls ---> Official requests to the manager
+                (System call interface is the rulebook for how programs ask the operating system to do privileged tasks).
+            - Hardware -------> Kitchen equipment
+
+    What make ABI different for each OS?
+
+        An ABI is different for each OS because each OS chooses different rules for how compiled programs should be loaded,
+        connected to libraries, and allowed to request OS services.
+
+        What makes them different?
+
+            1. Executable file format
+
+                Each OS expects a different program file format.
+
+                    Linux   → ELF
+                    Windows → PE / .exe
+                    macOS   → Mach-O
+
+                So even before running the program, the OS loader expects a different structure.
+
+            2. System call interface
+
+                Programs need to ask the OS for services:
+
+                    open file
+                    read file
+                    write output
+                    create thread
+                    allocate memory
+                    use network
+
+                Linux and Windows use different syscall numbers, rules, and OS APIs.
+
+                    For example:
+
+                        Linux app: “Use Linux syscall for write”
+                        Windows: “I do not provide that Linux syscall interface directly”
+
+            3. Function calling convention
+
+                Different OS ABIs may decide differently how functions receive arguments.
+
+                Example on x86-64:
+
+                    Linux/System V ABI:
+                        
+                        1st arg → RDI
+                        2nd arg → RSI
+                        3rd arg → RDX
+                        4th arg → RCX
+                    
+                    Windows x64 ABI:
+                        
+                        1st arg → RCX
+                        2nd arg → RDX
+                        3rd arg → R8
+                        4th arg → R9
+
+                Same CPU registers, different agreement.
+
+            4. Stack rules
+
+                The ABI defines how the stack must be arranged.
+
+                Different OS ABIs can require different:
+
+                    stack alignment
+                    reserved stack space
+                    function call setup
+                    exception/unwind information
+
+                Windows x64, for example, uses “shadow space” for function calls.
+                Linux System V x86-64 does not use it in the same way.
+
+            5. Library format and linking rules
+
+                Apps often use shared libraries.
+
+                    Linux   → .so
+                    Windows → .dll
+                    macOS   → .dylib
+
+                The OS ABI defines how the app says:
+
+                    I need this library.
+                    I need this function from that library.
+                    Please connect them when the program starts.
+
+                Linux, Windows, and macOS handle this differently.
+
+            6. Data type and structure layout rules
+
+                The ABI defines how data appears in memory.
+
+                    For example:
+
+                        How large is long?
+                        How are structs aligned?
+                        How are floating-point values passed?
+                        How are C++ exceptions handled?
+
+                    Even small differences can break compatibility.
+
+                    Simple example
+
+                        Imagine a program calls a function:
+
+                            foo(10, 20);
+
+                        On Linux x86-64, compiled code may pass arguments like:
+
+                            10 → RDI
+                            20 → RSI
+
+                        On Windows x64, compiled code may pass them like:
+
+                            10 → RCX
+                            20 → RDX
+
+                        If a Linux-compiled program calls a Windows library directly, the library may look in the wrong registers.
+                        So they misunderstand each other.
+
+        Clean summary
+
+            An ABI differs by OS because each OS defines its own binary-level rules for:
+
+                program file format
+                function calls
+                register usage
+                stack layout
+                system calls
+                dynamic libraries
+                runtime startup
+                exceptions
+                data layout
+
+    What are types of OS's ABI?
+
+        There are several “types” or categories of OS ABI, usually named by the combination of:
+
+            "Operating system + CPU architecture + binary conventions"
+
+            For example:
+
+                Linux x86-64 ABI
+                Windows x64 ABI
+                macOS ARM64 ABI
+                Linux RISC-V ABI
+
+        Common OS ABI examples
+
+            | OS / platform | CPU architecture | ABI name / common term                                           |
+            | ------------- | ---------------: | ---------------------------------------------------------------- |
+            | **Linux**     |           x86-64 | **System V AMD64 ABI**                                           |
+            | **Windows**   |           x86-64 | **Windows x64 ABI**                                              |
+            | **macOS**     |           x86-64 | macOS x86-64 ABI, based on System V style with Apple differences |
+            | **macOS**     |            ARM64 | **Apple ARM64 / Darwin ARM64 ABI**                               |
+            | **Linux**     |            ARM64 | **AAPCS64** / Linux AArch64 ABI                                  |
+            | **Windows**   |            ARM64 | **Windows ARM64 ABI**                                            |
+            | **Linux**     |           RISC-V | **RISC-V psABI**                                                 |
+            | **Android**   |   ARM64 / x86-64 | Android ABI, such as **arm64-v8a**, **x86_64**                   |
+
+        ABI names you may hear
+
+            1. System V ABI
+            Used by many Unix-like systems.
+
+                Common example:
+
+                    System V AMD64 ABI
+
+                This is used by:
+
+                    Linux x86-64
+                    many BSD x86-64 systems
+
+                It defines rules like:
+
+                    function arguments
+                    return values
+                    register usage
+                    stack alignment
+                    ELF binary format conventions
+
+            2. Windows x64 ABI
+            Used by 64-bit Windows programs on x86-64 CPUs.
+
+                It defines Windows-specific rules such as:
+
+                    function calling convention
+                    stack shadow space
+                    exception/unwind data
+                    DLL linking rules
+                    Windows runtime expectations
+
+                Example:
+
+                    Windows .exe on x86-64 → Windows x64 ABI
+
+            3. AAPCS / AAPCS64
+            This is the ARM Procedure Call Standard.
+
+                Common on ARM systems.
+
+                    AAPCS   → 32-bit ARM
+                    AAPCS64 → 64-bit ARM / AArch64
+
+                Linux ARM64, Android ARM64, and other ARM platforms use ABI rules based on this, sometimes with OS-specific additions.
+
+            4. RISC-V psABI
+            This is the ABI used for RISC-V platforms.
+
+                “psABI” means processor-specific ABI.
+
+                It defines things like:
+
+                    RISC-V calling convention
+                    register usage
+                    ELF rules
+                    relocation rules
+                    dynamic linking rules
+
+            5. Android ABIs
+            Android names ABIs by CPU target.
+
+                Examples:
+
+                    arm64-v8a
+                    armeabi-v7a
+                    x86
+                    x86_64
+
+                These names are common when building Android apps with native code (C, C++, Rust, Swift).
+
+                For example:
+
+                    arm64-v8a → Android on 64-bit ARM
+                    x86_64   → Android on 64-bit x86
+
+        Same ISA can have different OS ABIs
+
+            Important example:
+
+                x86-64 CPU
+
+            can have different ABIs depending on OS:
+
+                Linux x86-64  → System V AMD64 ABI
+                Windows x64   → Windows x64 ABI
+                macOS x86-64  → Apple/Darwin x86-64 ABI
+
+            Same CPU instruction set, but different OS-level binary rules.
+
+
+What make a linux program can not run on Windows OS even if the x86 architecture understands the program's instructions?
+
+    Because the CPU only understands the instruction bits,
+    but the OS must understand the program’s whole environment.
+
+    A Linux x86-64 program and a Windows x86-64 program may both contain instructions the CPU can execute,
+    but they are packaged and written for different OS contracts.
+
+        Linux x86-64 program
+
+            ✅ x86-64 instructions: CPU can understand
+            ❌ Linux executable format: Windows does not normally load it
+            ❌ Linux system calls: Windows does not provide them directly
+            ❌ Linux libraries: Windows does not normally have them
+            ❌ Linux ABI/runtime expectations: different from Windows
+
+    Main reasons:
+
+        | Difference                 | Linux program expects        | Windows provides                           |
+        | -------------------------- | ---------------------------- | ------------------------------------------ |
+        | **Executable format**      | ELF                          | PE / `.exe`                                |
+        | **System calls**           | Linux syscall interface      | Windows NT syscall / Win32 API environment |
+        | **Libraries**              | `.so`, often `glibc`         | `.dll`, Windows runtime libraries          |
+        | **Dynamic loader**         | e.g. `ld-linux-x86-64.so.2`  | Windows loader                             |
+        | **Path/environment rules** | `/home/user/file` style      | `C:\Users\Name\file` style                 |
+        | **ABI details**            | Linux x86-64 ABI conventions | Windows x64 ABI conventions                |
+
+    For example:
+    
+        Linux program might contain machine code that says:
+
+            Use Linux syscall number X to write bytes to stdout.
+
+        The x86-64 CPU can execute the syscall instruction, but Windows does not treat the syscall numbers and
+        OS services the same way Linux does. So the instruction is understood by the CPU,
+        but the request it makes to the OS is not the Windows contract.
+
+    A useful way to say it:
+
+        The CPU understands the words, but the OS does not understand the conversation the program is trying to have.
+
+    To run natively on Windows, the program should be built for:
+
+        x86-64 ISA
+        + Windows x64 ABI
+        + Windows PE/.exe format
+        + Windows APIs/libraries
+
+    Compatibility tools can bridge the gap (Linux/Unix-style programs run on Windows):
+
+        WSL        → provides a Linux environment on Windows
+        Wine       → translates many Windows API calls for Unix-like systems
+        VM         → runs a whole guest OS
+        Recompile  → build the source code for Windows instead
+
+    Linux/Unix-style programs can run on Windows by using compatible layers
+
+        For example:
+
+            - WSL
+            - Wine
+            - Cygwin / MSYS2
+            - virtual machines
+
+        These provide translation or compatibility environments so some Linux/Unix-style programs can run on Windows.
+
+
+Compiled apps contains "OS service expectations"
+
+    The compiled app expects a particular operating system to provide certain services in a certain way.
+    A normal app does not handle everything itself. It expects the OS to help with things like files, memory,
+    keyboard, screen, networking, and processes.
+
+    Examples of OS services
+
+        A compiled app may expect the OS to provide:
+
+            | Service                       | What the app expects                                 |
+            | ----------------------------- | ---------------------------------------------------- |
+            | **File access**               | Open, read, write, close files                       |
+            | **Memory management**         | Allocate memory, map memory, protect memory          |
+            | **Process/thread management** | Start processes, create threads, schedule execution  |
+            | **Input/output**              | Read keyboard input, write to terminal/window        |
+            | **Networking**                | Open sockets, send/receive data                      |
+            | **Timers**                    | Sleep, get current time, set timers                  |
+            | **Security/permissions**      | Check whether the app is allowed to access something |
+            | **Dynamic libraries**         | Load shared libraries at runtime                     |
+
+        For example, when a program does:
+
+            C (c programming language)
+            
+                printf("Hello\n");
+
+            The CPU does not magically know where the terminal is.
+
+                The program eventually expects the OS to provide a service like:
+
+                    "write these bytes to standard output"
+
+                On Linux, this may become a Linux write system call.
+                On Windows, it may go through Windows APIs such as console or file-handle functions.
+                A Linux app and a Windows app can both use the same x86-64 CPU instructions, but they expect different OS services.
+
+
+Can a compiled program directly run on CPU?
+
+    A compiled application cannot usually run on the CPU alone. It needs the correct CPU ISA,
+    plus the correct OS and ABI environment. Because the CPU only understands machine instructions.
+
+    The CPU does not know how to do these by itself:
+
+        - open an .exe or ELF file
+        - create a process
+        - manage files
+        - load the program into memory        
+        - allocate virtual memory (set up stack and heap)
+        - load shared libraries / dynamic libraries
+        - print text to screen
+        - read keyboard input        
+        - use network devices
+        - protect memory between programs
+        - schedule multiple programs
+
+        Those jobs are normally done by the operating system.
+        The CPU does not automatically know how to read your app from disk and prepare it.
+
+            The CPU can execute instructions like:
+
+                add
+                mov
+                jump
+                call
+ 
+    So a normal program needs:
+
+        | Requirement                   | Example                                             |
+        | ----------------------------- | --------------------------------------------------- |
+        | **Correct ISA**               | x86-64 program for x86-64 CPU                       |
+        | **Correct OS format**         | Linux ELF, Windows EXE/PE, macOS Mach-O             |
+        | **Correct ABI**               | function calling rules, stack layout, syscall rules |
+        | **Correct libraries/runtime** | libc, dynamic linker, language runtime              |
+
+        Example:
+
+            Linux x86-64 program → x86-64 CPU + Linux OS ✅
+            Linux x86-64 program → x86-64 CPU + Windows OS ❌ usually not directly
+            Windows x86-64 .exe → x86-64 CPU + Windows OS ✅
+            Windows x86-64 .exe → ARM CPU + Linux OS ❌
+
+    But there is one exception:
+
+        Bare-metal programs can run without an OS.
+
+        Examples of program without OS:
+
+            - bootloaders
+            - firmware
+            - embedded microcontroller programs
+            - small operating system kernels
+
+        In those cases, the program itself must do what the OS normally does: initialize hardware, set up memory,
+        handle interrupts, talk to devices, and so on.
+
+
+Why do we need OS then?
+
+    Your computer runs more than one app at a time; the operating system is responsible for
+    ensuring that all of your apps share your computer properly
+
+    Imagine if discord had full control over your computer and phone, and you had to
+    reboot(It clears active memory and reloads) it to switch to e.g. chrome or a game
+    or if discord crashing also crashed every other app at the same time.
+
+OS (Operating System) -----------------------------------------------------------------------------------------------------------------------------------------
+
+
+Questions -----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Is there any other abstract machine rules / hardware–software interfaces like ISA besides ISA?
+
+    Yes. ISA is one kind of abstract machine rule / hardware–software interface, but there are many others at different layers.
+    A computer system has many “rulebooks,” not only the CPU ISA.
+
+        Big picture for example:
+
+            Application source code
+                    ↓
+            Programming language rules
+                    ↓
+            Compiler / runtime rules
+                    ↓
+            ABI rules
+                    ↓
+            Operating system rules
+                    ↓
+            ISA rules
+                    ↓
+            Microarchitecture / physical hardware
+
+        There is ABI Rules, System call interface
+
+            - ABI (Application Binary Interface)                
+            An ABI is a rulebook for how compiled programs interact with the OS, libraries, and CPU at the binary level.
+
+                If ISA is:
+
+                    “What instructions does the CPU understand?”
+
+                Then ABI is:
+
+                    “How should a compiled program use those instructions correctly in this operating system?”
+
+                ABI defines things like:
+
+                    which registers are used for function arguments
+                    which registers must be saved
+                    how the stack is organized
+                    how system calls are made
+                    how data types are laid out in memory
+                    how program files are formatted
+
+                Example:
+
+                    C (c programming language)
+
+                        int add(int a, int b) {
+                            return a + b;
+                        }
+
+                    The ABI decides whether a and b are passed in registers, on the stack, or somewhere else.
+
+                So:
+
+                    | Concept | Meaning                   |
+                    | ------- | ------------------------- |
+                    | **ISA** | CPU instruction rulebook  |
+                    | **ABI** | compiled-program rulebook |
+
+                Example ABIs:
+
+                    System V AMD64 ABI    → common on Linux x86-64
+                    Windows x64 ABI       → Windows x86-64
+                    AAPCS                 → ARM procedure call standard
+                    RISC-V psABI          → RISC-V platform ABI
+
+            - System call interface
+            A system call interface is the rulebook for how programs ask the operating system to do privileged tasks.
+            Normal programs usually cannot directly control hardware. They ask the OS.
+
+                Examples:
+
+                    open a file
+                    read from a file
+                    write to a file
+                    create a process
+                    allocate memory
+                    send network data
+
+                    Example:
+
+                        Program: "Please read this file."
+                        OS: "Okay, I will talk to the disk hardware for you."
+
+                    So the system call interface is a contract between:
+
+                        user program ↔ operating system kernel
+
+                The CPU ISA is lower-level. The syscall interface is OS-level.
+
+            - Device interface
+            Hardware devices also have interfaces that software must follow.
+
+                For example:
+
+                    - GPU
+                    - keyboard
+                    - network card
+                    - disk controller
+                    - USB controller
+                    - sound card
+                    - display controller
+
+                The CPU does not magically know how to use every device. Device drivers follow hardware interface rules.
+
+                    A device interface may define:
+
+                        - device registers
+                        - commands
+                        - status bits
+                        - memory-mapped I/O addresses
+                        - interrupt behavior
+                        - DMA rules
+
+                    Example:
+
+                        - Driver writes command to device register
+                        - Device performs action
+                        - Device raises interrupt
+                        - Driver reads result
+
+                    So device interfaces are hardware–software contracts too.
+
+            - Firmware interfaces
+            Before the operating system starts, firmware helps initialize the machine.
+
+                Examples of firmware:
+
+                    BIOS
+                    UEFI
+                    Open Firmware
+                    coreboot
+
+                Firmware interfaces define how the OS or bootloader communicates with early machine services.
+
+                    Example:
+
+                        Bootloader asks firmware:
+                            "Where is memory?"
+                            "Where is the disk?"
+                            "How do I start the OS?"
+
+            - Hypervisor / virtual machine interfaces
+            Virtual machines add another interface.
+
+                Example:
+
+                    Guest OS
+                        ↓
+                    Virtual hardware / hypervisor interface
+                        ↓
+                    Hypervisor
+                        ↓
+                    Real hardware
+
+                Systems like VMware, VirtualBox, KVM, Hyper-V, and Xen provide virtual hardware interfaces.
+                The guest operating system thinks it is talking to hardware, but it is really talking to a hypervisor.
+
+
+Is there any other types of abstract machine rules / hardware–software interfaces for CPU (machine code -> CPU) besides ISA?
+
+    The abstract machine rule is still the ISA; there is no other abstract machine rules besides ISA
+
+    ******* BUT I'M NOT SURE WITH THIS AI ANSWER IF THERE IS NO OTHER ISA *******
+
+Questions -----------------------------------------------------------------------------------------------------------------------------------------------------'
+
+
+
+
+
+
+if i want to compile a unreal engine game what do i need?
+what is OS services?
+what can CPU do & can not do?
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+Compiler, assembler, linker, boot loader, OS loader, ABI, system call, libraries
+
+
+
+
+
+
+
+
+A compiled program containis:
+
+    - machine instructions
+    - function information
+    - library references
+    - memory layout information
+    - entry point
+    - data sections
+
+    Linux x86-64 program containis:
+        - x86-64 ISA
+        - Linux executable format: ELF
+        - Linux ABI conventions
+        - Linux system calls
+        - Linux dynamic linker
+        - Linux libraries, such as glibc
+
+    Windows x86-64 program contains:
+        - x86-64 ISA
+        - Windows executable format: PE/.exe
+        - Windows x64 ABI conventions
+        - Windows system calls / Win32 API
+        - Windows loader
+        - Windows libraries, such as kernel32.dll, msvcrt/ucrt, ntdll.dll
+
+
+Compiled program made for one does not directly run on the other:
+
+    x86-64 machine code  → x86-64 CPU
+    ARM64 machine code   → ARM64 CPU
+
+    If you try this:
+
+        x86-64 machine code → ARM64 CPU
+
+        it will not run directly.
+
+    You need:
+
+        recompilation
+        or
+        emulation
+        or
+        binary translation
+
+        Example: Apple Silicon Macs use ARM-based CPUs, but they can run many older x86-64 Mac apps using translation.
+
+
+How compiled App and ABI and OS work together?
+
+    They work together like this:
+
+        Source code
+            ↓ compiler targets a CPU ISA + ABI + OS
+        Executable app
+            ↓ OS loader starts loading the app
+        App runs on CPU
+            ↓ app asks OS for services using system calls / libraries
+        OS manages hardware and resources
+
+
+How compiled App and ABI and OS work together?
+
+    Source code
+        ↓ (compiler)
+    Assembly / object code
+        ↓ (assembler + linker)
+    Executable machine code
+        ↓ (operating system loads it)
+    CPU executes it
+
+    They work together like this:
+
+        Source code
+            ↓ (compiler targets a CPU ISA + ABI + OS)
+        Executable app
+            ↓ (OS loader starts it)
+        App runs on CPU
+            ↓ (app asks OS for services using system calls / libraries)
+        OS manages hardware and resources
+
+    1. Compiled app
+    A compiled app is a file containing machine code plus extra information.
+
+        For example:
+
+            Linux app   → ELF file
+            Windows app → EXE / PE file
+            macOS app   → Mach-O file
+
+        Inside the compiled app there may be:
+
+            - machine instructions
+            - function information
+            - library references
+            - memory layout information
+            - entry point
+            - data sections
+
+        Insidie the compiled app already contained the machine instructions are for a specific ISA, such as: x86-64, ARM64, RISC-V.
+        So an app is not just “generic machine code.” It is machine code packaged in an OS-specific executable format.
+
+    2. ABI
+    The ABI, or Application Binary Interface, is the rulebook that lets compiled code work correctly with the OS and libraries.
+
+        it defines things like:
+
+            | ABI rule                   | Meaning                                            |
+            | -------------------------- | -------------------------------------------------- |
+            | **Calling convention**     | How functions pass arguments and return values     |
+            | **Register usage**         | Which registers a function may change              |
+            | **Stack layout**           | How function calls use memory                      |
+            | **Data layout**            | How integers, structs, pointers, etc. are arranged |
+            | **System call convention** | How the app asks the OS for services               |
+            | **Binary linking rules**   | How compiled code connects to libraries            |
+
+            Example:
+
+                C (c programming language)
+                
+                    printf("Hello");
+
+                Your app may call printf, but printf is usually in a library of compiled program. The ABI makes sure
+                your app and the library agree on how that function call works.
+
+                    For example, the ABI decides:
+
+                        put first argument here
+                        put return value there
+                        save these registers
+                        align the stack this way
+
+                    Without the correct ABI, the program and library may misunderstand each other.
+
+
+Why the correct OS and ABI matter?
+
+    Same ISA is not enough.
+
+    Example:
+
+        Linux x86-64 app
+        Windows x86-64 app
+
+        Both may contain x86-64 machine code, so the CPU can understand the instructions.
+
+        But they differ(berbeda) in:
+
+            executable file format
+            system call interface
+            library names
+            ABI details
+            program loading rules
+
+        So:
+
+            Linux x86-64 app → x86-64 CPU + Linux OS ✅
+            Windows x86-64 app → x86-64 CPU + Windows OS ✅
+            Linux x86-64 app → x86-64 CPU + Windows OS ❌ normally
+
+        The CPU understands the instructions, but Windows does not provide the Linux environment that the program expects.
+
+
+How they(App, ABI, OS) cooperate(bekerja sama) when you run an app:
+
+    Suppose you run:
+
+        </> Bash
+        
+            ./hello
+
+    The process is roughly:
+
+        1. Step 1: OS reads the executable
+
+            The OS sees:
+
+                - This is an ELF file.
+                - It is for x86-64 Linux.
+                - It needs these libraries.
+                - Its entry point is here.
+
+        2. Step 2: OS creates a process
+
+            The OS creates a new running program environment:
+
+                - virtual memory space
+                - stack
+                - heap area
+                - file descriptors
+                - environment variables
+                - security permissions
+
+        3. Step 3: OS loads libraries
+
+            "Shared libraries" is a library of executable code (compiled program) that is loaded in memory.
+            Multiple programs can use simultaneously in memory at runtime. Shared libraries are loaded when
+            a program starts or runs.
+
+                Shared libraries often called:
+                    
+                    .so,
+                    .dll,
+                    or 
+                    .dylib files
+
+            If the app uses shared libraries, the OS/dynamic linker loads them.
+
+                Example:
+
+                    - libc.so
+                    - libm.so
+                    - other shared libraries
+                    
+        4. Step 4: OS jumps to the entry point
+
+            The CPU begins executing the app’s machine code.
+
+                "CPU executes app instructions"
+
+        5. Step 5: App uses ABI rules to call functions
+
+            When the app calls a function, the ABI rules are followed.
+
+            Example:
+
+                Function's argument 1 goes in register X
+                Function's argument 2 goes in register Y
+                return value comes back in register Z
+
+            This lets the app call library functions correctly.
+
+        6. Step 6: App asks OS for services
+
+            When the app needs OS help, it uses a system call.
+
+            Examples:
+
+                open file
+                read file
+                write to screen
+                allocate memory
+                create thread
+                connect to network
+
+            The CPU switches from user mode to kernel mode, the OS handles the request, then returns to the app.
+
+    Simple analogy
+
+        Imagine a restaurant:
+
+            - Compiled app ---> A customer with requests
+            - Libraries ------> Pre-made services/menu items
+            - ABI ------------> The etiquette/form of rules for making requests
+            - OS -------------> The restaurant manager and staff
+            - System calls ---> Official requests to the manager
+                (System call interface is the rulebook for how programs ask the operating system to do privileged tasks).
+            - Hardware -------> Kitchen equipment
+
+        The app cannot just walk into the kitchen and use everything directly. It needs to follow rules and asks the OS.
+
+        Example: printf("Hello\n")
+
+            When your C program says:
+
+                printf("Hello\n");
+
+                many layers are involved:
+                    
+                    Your C code
+                        ↓ (compiler create an execution file)
+                    machine code following ISA + ABI
+                        ↓ (app calls printf using ABI calling convention)
+                    C library formats the text "Hello"
+                        ↓ (library asks OS using system call)
+                    OS writes bytes to terminal/screen
+                        ↓ (CPU executes instructions, hardware displays output)
+
+                So printf is not one simple CPU instruction. It involves:
+
+                    - compiled app
+                    - ABI function-call rules
+                    - C standard library
+                    - OS system call
+                    - device driver / terminal
+                    - hardware
+
+
+
+
+
+
+
+
+
+can apps run acroos CPU architecture? no
+can apps run acroos platforms? ...
+///////////////////////////// below is not necessarily true ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    ISA (Instruction Set Architectures)
+
+        An Instruction Set Architecture, or ISA, is the set of rules for instructions / CPU instruction systems that a CPU understands.
+
+            So yes, you could say:
+                
+                ISA is the rule design for instructions that a CPU can understand and execute.
+
+            Or even simpler:
+
+                ISA is the instruction rulebook of a CPU.
+
+            Example:
+
+                asm(assembly)
+                    
+                    add x1, x2, x3
+
+                The ISA defines:
+
+                    This instruction means: add the value in x2 and x3, then store the result in x1.
+
+                It also defines how that instruction becomes binary machine code, for example:
+
+                    0000000 00011 00010 000 00001 0110011
+
+        When a program runs, the CPU does very simple operations, such as:
+
+            - Add two numbers
+            - Move data from one place to another
+            - Compare two values
+            - Jump to another instruction
+            - Load data from memory
+            - Store data into memory
+
+            The ISA defines which instructions exist and how software should use them.
+
+                For example, an ISA answers questions like:
+
+                    - What instruction means “add”?
+                    - What registers does the CPU have?
+                    - How does the CPU access memory?
+                    - How are instructions written in binary?
+                    - Is the CPU 32-bit or 64-bit?
+
+                A CPU cannot directly understand Python, Java, C++, or JavaScript. Those programs must eventually
+                become machine code, which follows the CPU’s ISA.
+
+                    For example:
+
+                        asm (Assembly)
+                            
+                            ADD R1, R2, R3
+
+                        This might mean:
+
+                            Add the value in register R2 and register R3, then put the result in register R1.
+
+                    That kind of instruction is part of an ISA.
+
+        Analogy is:
+
+            x86 / x86-64, ARM, RISC-V are architecture names, those architectures use ISA(as a grammar) and assembly(as a language).
+            then the instructions(as assembly sentences) need to translate to be machine codes(zero & one) by using assembler to
+            make a CPU understand.
+
+                Yes, your understanding is mostly correct. Just one important correction:
+
+                    x86 / x86-64, ARM, and RISC-V are themselves ISA families.
+                    So they do not “use an ISA” separately. They are types of ISA, or more exactly, architecture/ISA families.
+
+                A better version of your sentence would be:
+
+                    x86-64, ARM, and RISC-V are CPU architecture/ISA families. Each ISA defines the CPU’s instruction rules,
+                    like grammar and vocabulary. Assembly is the human-readable form of those instructions. The assembler translates
+                    assembly into machine code, zeros and ones, so the CPU can execute it.
+
+            So:
+
+                | Computer concept      | Language analogy                                     |
+                | --------------------- | ---------------------------------------------------- |
+                | **ISA**               | The language rules: vocabulary, grammar, meaning     |
+                | **Assembly language** | Human-readable sentences written using that language |
+                | **Machine code**      | The same sentences encoded in binary                 |
+                | **Assembler**         | A translator from assembly into machine code         |
+
+            For example, in assembly you might write:
+
+                asm (Assembly)
+                    
+                    ADD R1, R2, R3
+
+                That means something like:
+
+                    Add R2 and R3, then store the result in R1.
+
+                - The ISA defines that this instruction exists, what ADD means, what registers are allowed, and
+                how this instruction becomes binary.
+
+                - The assembly language is just the readable text form.
+
+                - The machine code is the actual binary version the CPU runs, maybe something like: '1010100010010101'
+
+            One more detail:
+
+                Architecture can mean different things depending on context.
+
+                Sometimes people say:
+
+                    “ARM architecture”
+                    and they mean the ARM ISA.
+
+                Other times, “CPU architecture” can mean the broader internal design of the CPU, including cores, cache,
+                pipelines, registers, and so on. That broader internal design is often called microarchitecture.
+
+        One important detail: each ISA has its own assembly style
+
+            For example, “add two numbers” might look different on different CPU architectures:
+
+                asm (Assembly)
+
+                    ; x86-style
+                        
+                        add eax, ebx
+                    
+                    ; ARM-style
+                        
+                        ADD X0, X1, X2
+                    
+                    ; RISC-V-style
+                        
+                        add x1, x2, x3
+
+        Conversation:
+
+            Is ISA an instruction concept for x86 and ARM architecture?
+
+                What do you mean by "an instruction concept"
+                Like how are you using "concept" here
+
+                I also wouldn't use "for" this way
+                x86 and ARM are both examples of ISAs, and both of them have evolved over time,  but they're not the only ISAs
+
+                An ISA is the actual set of behaviors you need to use a CPU by writing machine code - it's the list of instructions
+                but also the size and properties of the registers, the behavior for memory access, etc
+
+                X86 and arm aren't just different because the "instruction concept" is different
+                The set of registers is different. The behavior of memory access when multiple cores share the same data is different
+
+            Can you explain this why the architectures have a type?
+
+                | Year  | CPU Architecture                  | Type                   |
+                | ----- | --------------------------------- | ---------------------  |
+                | 1978  | x86 (Intel 8086)                  | CISC                   |
+                | 1979  | Motorola 68000 (m68k)             | CISC                   |
+                | 1981  | MIPS                              | RISC                   |
+                | 1982  | SPARC                             | RISC                   |
+                | 1985  | ARM                               | RISC                   |
+                | 1991  | PowerPC                           | RISC                   |
+                | 1992  | Alpha                             | RISC                   |
+                | 1995  | x86-64 concept development        | CISC                   |
+                | 1999  | IA-64 (Itanium)                   | EPIC                   |
+                | 2010  | ARM64 / AArch64                   | RISC                   |
+                | 2010  | LoongArch early development roots | RISC                   |
+                | 2010  | OpenRISC growth period            | RISC                   |
+                | 2015  | RISC-V                            | RISC                   |
+
+                Because you can categorize the design methodologies broadly
+                CISC means "complex instruction set computer" and RISC means "reduced instruction set computer"
+                CISC processors have more an ISA where each instruction is more powerful and does more, but
+                they require more space, power, and/or time per instructions.
+
+    ISA families
+
+        An ISA family is a group of related CPU instruction rulebooks.
+
+            For example:
+
+                | ISA family        | Examples inside the family   | Common CPUs                                   |
+                | ----------------- | ---------------------------- | --------------------------------------------- |
+                | **x86 family**    | x86, IA-32, x86-64           | Intel Core, AMD Ryzen                         |
+                | **ARM family**    | ARMv7, ARMv8, ARMv9, AArch64 | Apple M chips, Snapdragon, Raspberry Pi       |
+                | **RISC-V family** | RV32, RV64, plus extensions  | microcontrollers, research CPUs, custom chips |
+
+            So an ISA family is not always one exact ISA. It is more like a family tree of related instruction systems.
+
+        What makes ISA families different?
+
+            They differ in the instruction design style, register, instruction size, instruction decoding, Memory access style.
+
+            1. Different instructions
+            Each ISA family has its own instruction names and behavior.
+
+                For example, addition can look different:
+
+                    asm(assembly)
+
+                        ; x86-64
+                        add rax, rbx
+                        
+                        ; ARM / AArch64
+                        add x0, x1, x2
+                        
+                        ; RISC-V
+                        add x1, x2, x3
+
+                    They all mean “add,” but the exact rules are different.
+
+            2. Different machine-code encoding
+            Even if two CPUs both have an “add” instruction, the binary pattern may be different.
+
+                For example:
+
+                    x86-64 ADD      -> one binary encoding
+                    ARM ADD         -> different binary encoding
+                    RISC-V ADD      -> different binary encoding
+
+                That is why a program compiled for x86-64 cannot directly run on ARM. The CPU would read the bits differently.
+
+            3. Different registers
+            Registers are tiny fast storage locations inside the CPU. Different ISA families expose different registers.
+
+                For example:
+
+                    | ISA        | Example register names     |
+                    | ---------- | -------------------------- |
+                    | **x86-64** | `rax`, `rbx`, `rcx`, `rdx` |
+                    | **ARM64**  | `x0`, `x1`, `x2`, `x3`     |
+                    | **RISC-V** | `x0`, `x1`, `x2`, `x3`     |
+
+                Even when names look similar, the rules may be different.
+
+            4. Different instruction style
+            A major difference is CISC vs RISC style.
+
+                x86 / x86-64: CISC-like
+                x86 has many complex instructions. Some instructions can do multiple things.
+
+                    Example idea:
+
+                        asm(assembly)
+                        
+                            add [memory_location], rax
+
+                    This can add a register value directly to something in memory.
+
+                ARM and RISC-V: RISC-like
+                ARM and RISC-V usually use simpler instructions. They often separate memory access from arithmetic.
+
+                    Example idea:
+
+                        asm(assembly)
+
+                            load value from memory into register
+                            add registers
+                            store result back to memory
+
+            5. Different compatibility
+            Programs must be compiled for the correct ISA.
+
+                For example:
+
+                    Program compiled for x86-64  -> runs on x86-64 CPU
+                    Program compiled for ARM64   -> runs on ARM64 CPU
+                    Program compiled for RISC-V  -> runs on RISC-V CPU
+
+                If you try to run ARM machine code on an x86-64 CPU, it will not work directly.
+
+                    You need one of these:
+
+                        recompile the program
+                        or
+                        use an emulator/translator
+
+                    Example:
+                    
+                        Apple Silicon Macs use ARM-based chips, but they can run many x86-64 Mac apps through translation software.
+
+
+
+
+///////////////////////////// below is not necessarily true ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+    A model is a method to make people understand easily. A model usually hides unnecessary details, keeps important parts,
+    helps people think about the real thing more easily.
+
+        Example:
+
+            - Bohr model
+
+                The Bohr model, proposed by Niels Bohr in 1913, is a foundational atomic model that describes electrons orbiting
+                a positively charged nucleus in specific, quantized energy shells or levels.
+
+            - OSI model
+
+                The Open Systems Interconnection (OSI) model is a conceptual framework that standardizes how computer systems
+                communicate over a network using seven distinct layers. Developed by the ISO in 1984, it divides network operations
+                into manageable, hierarchical stages—from physical cabling to application software—to ensure interoperability and
+                simplify troubleshooting.
+
+            - AI model
+
+                An AI model is a system trained to recognize patterns and produce outputs.
+
+            - Abstract model of a computer system (in computer)
+
+                It means a simplified way to describe how a computer works without showing every electrical detail.
+
+            - A globe is a model of Earth.
+            - A map is a simplified model of a place.
+            - A blueprint is a model of a building.
+            - A class diagram in software is a model of a system.
+            - A 3D character in a game engine is a model of a character.
+            - A mathematical formula can be a model of a physical phenomenon.
+
+
+    Computer organization VS Computer Design VS Computer Architecture
+
+        Computer organization
+        - how h/w components work and connected
+        - i.e internal working and operational structure
+        - How the system operates internally.
+        - Ex: How ALU works, how data flows through registers
+        
+        Computer Design
+        - actual hardware design of the computer
+        - What H/w to use
+        - How components should be built
+        - How to implement circuits
+        - Physical implementation of the computer
+        - How to build the hardware
+        
+        Computer Architecture
+        - Structure and behavior of the computer.
+        - The view of the computer that is visible to the programmer
+        - Include: Instruction sets, data formats, functional modes
+        - Describes what the computer can do and how it is organized from user’s perspective.
+        - What computer can do and how it organized from user
+
+
+    Computer Organization Model
+
+        A Computer Organization Model focuses on:
+
+            - how hardware components are arranged,
+            - how they communicate,
+            - and how instructions are executed internally.
+
+            It describes the internal operational structure of a computer.
+            
+        Main parts usually include:
+
+            - CPU
+            - Memory
+            - Input/Output (I/O)
+            - Buses (data pathways)
+            - Control Unit
+            - Registers
+
+
+    Computer Design Model
+
+        A computer system design model is an abstract plan or blueprint used to describe how a computer is designed,
+        organized, and works. It is used to help engineers, programmers, and designers understand before building it.
+
+        It helps engineers, programmers, and students understand:
+
+            - what components exist,
+            - how they are connected,
+            - and how data/instructions move inside the computer.
+
+            A design model simplifies the real machine so people can study or build it more easily.
+
+        Simple Analogy:
+
+            A computer design model is like:
+            - a building blueprint for architects,
+            - or a map for understanding a city.
+
+        Main Purpose of a Computer Design Model
+
+            It is used to:
+            - explain computer structure,
+            - design new computers
+
+        Examples of Computer Design Models
+
+            1. Von Neumann Architecture
+            2. Harvard Architecture
+            3. ISA (Instruction Set Architecture)
+            4. Parallel Architecture
+            5. Distributed Architecture
+
+
+    Computer system design model
+
+        A computer system design model is an abstract plan or blueprint used to describe how an entire computer system is
+        designed and how all its parts work together.
+
+        A computer system design model can include:
+
+            Hardware
+            - CPU
+            - Memory (RAM)
+            - Storage
+            - GPU
+            - Input/output devices
+            
+            Software
+            - Operating system
+            - Drivers
+            - Applications
+            
+            Communication
+            - Networking
+            - Data transfer between components
+            
+            System behavior
+            - Performance
+            - Power usage
+            - Security
+            - Scalability
+
+
+    Computer system design model:
+
+        1. Von Neumann Architecture
+        The most common computer architecture.
+
+            Main idea:
+                Program instructions and data are stored in the same memory.
+                CPU fetches instructions one by one.
+            
+            Components:
+                - CPU
+                - Memory
+                - Input/Output
+                - Bus system
+            
+            Used in:
+                - Most PCs
+                - Laptops
+                - Many game consoles
+            
+            Simple Flow:
+                1. Fetch instruction
+                2. Encode instruction
+                3. Execute instruction
+                4. Decode instruction
+
+
+    Architecture is the art(seni), science(ilmu), and technique(cara) of designing and constructing buildings and physical structures.
+    It’s about more than just making something look good—it involves planning how a space functions, how it stands up structurally, and
+    how it fits into its environment.
+
+        At a basic level, architecture combines several key ideas:
+
+            - Design: shaping the appearance and layout of a building
+            - Function: making sure spaces work for their intended use
+            - Structure: ensuring the building is stable and safe
+            - Aesthetics: creating something visually meaningful or pleasing
+
+        You can also think of architecture more broadly:
+
+            - In technology, “architecture” refers to how systems are designed (like computer architecture or software architecture).
+            - In organizations, it can describe how parts are structured and connected.
+
+
+    CPU Architecture
+
+        CPU architecture is the design and structure of how a CPU works and how software communicates with it.
+
+        Microarchitecture is The internal hardware implementation
+
+            Microarchitecture defines: HOW the CPU physically executes them
+            Microarchitecture (The internal implementation of an ISA).
+
+                Examples:
+
+                    - Cache design
+                    - Pipeline design
+                    - Core layout
+                    - Branch prediction
+
+            Different CPUs can use the same ISA but different internal designs (microarchitectures).
+            Two CPUs can use the same ISA but different microarchitectures.
+
+                Example:
+
+                    - Intel CPUs and AMD CPUs both use x86-64(CISC) ISA
+                    - But internally they are designed differently
+                
+            Simple Analogy
+
+                Think of spoken language.
+
+                    - ISA = English language rules and vocabulary
+                    
+                    - CPU Design = Different people speaking English differently through variations in accent, dialect,
+                    register, and speed.
+
+                        Dialects (Vocabulary & Grammar Variations)Dialect involves differences in vocabulary,
+                        sentence structure, and grammar.
+
+                        Example:
+
+                            One speaker might say "I have not" (formal) while another says "I ain't got" (regional/colloquial).
+
+                Both understand English,
+                but their internal thinking/process differs.
+
+
+    CPU vs Chipset
+
+        The CPU (Central Processing Unit) is the "brain" of the computer that executes instructions,
+        while the chipset is the "traffic controller" on the motherboard that manages data flow between the CPU,
+        memory, and peripherals(perangkat keras sekeliling / tambahan yang dihubungkan ke komputer).
+        The CPU does the processing work; the chipset enables components to talk to each other.
+
+
+
+    Yes, Instruction Set Architecture (ISA) is a fundamental concept in computer science that defines how software communicates with hardware.
+    It acts as the conceptual, functional, and logical interface between a programmer/compiler and the physical CPU. It defines
+    the "language" (set of instructions) that the processor can understand and execute. It is one of the most important concepts in
+    computer architecture.
+
+        An ISA is basically:
+            
+            The language a CPU understands.
+
+        It defines:
+
+            - The instructions a CPU can execute
+            - The registers available
+            - Data types
+            - Memory access rules
+            - How software talks to the CPU
+
+        Simple Idea:
+
+            When you write code:
+
+                int a = b + c;
+
+            your compiler converts that into machine instructions.
+
+            Example instructions (simplified):
+
+                LOAD R1, b
+                LOAD R2, c
+                ADD R3, R1, R2
+                STORE a, R3
+
+            Those instructions belong(tergolong) to an ISA.
+            The CPU only understands instructions defined by its ISA.
+            or The instructions are only understood by ISA's CPU Architectures (like x86-64, ARM, SPARC, MIPS)
+
+            Software says:
+
+                “I will use these instructions.”
+
+            CPU says:
+
+                “I know how to execute them.”
+
+            Real Example
+
+                A Windows game compiled for x86-64 CPU:
+                - Uses x86-64 (CISC) instructions
+                - Needs an x86-64 CPU
+
+                An Android app:
+                - Usually uses ARM64 (RISC) instructions
+                - Needs an ARM CPU
+
+                That’s why software compiled for one ISA may not run on another ISA directly.
+
+        ISA vs Microarchitecture ***This is VERY important.***
+
+            ISA defines: WHAT instructions exist
+
+                Example:
+
+                    - ADD
+                    - SUB
+                    - MOV
+
+            Microarchitecture defines: HOW the CPU physically executes them
+            Microarchitecture (The internal implementation of an ISA).
+
+                Examples:
+
+                    - Cache design
+                    - Pipeline design
+                    - Core layout
+                    - Branch prediction
+
+            Different CPUs can use the same ISA but different internal designs (microarchitectures).
+            Two CPUs can use the same ISA but different microarchitectures.
+
+                Example:
+
+                    - Intel CPUs and AMD CPUs both use x86-64(CISC) ISA
+                    - But internally they are designed differently
+                
+            Simple Analogy
+
+                Think of spoken language.
+
+                    - ISA = English language rules and vocabulary
+                    
+                    - CPU Design = Different people speaking English differently through variations in accent, dialect,
+                    register, and speed.
+
+                        Dialects (Vocabulary & Grammar Variations)Dialect involves differences in vocabulary,
+                        sentence structure, and grammar.
+
+                        Example:
+
+                            One speaker might say "I have not" (formal) while another says "I ain't got" (regional/colloquial).
+
+                Both understand English,
+                but their internal thinking/process differs.
+
+        Types of ISA:
+        
+            1. CISC (Complex Instruction Set Computer): Features a large set of instructions capable of executing complex tasks in
+            fewer lines of code (e.g., Intel x86).
+            
+            2. RISC (Reduced Instruction Set Computer): Focuses on a smaller, simpler set of instructions designed for higher speed and
+            efficiency (e.g., ARM, RISC-V).
